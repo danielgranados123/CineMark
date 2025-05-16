@@ -1,6 +1,15 @@
-// Array de métodos (CRUD)
-const moviesController = {};
+import { v2 as cloudinary } from "cloudinary";
+import { config } from "../config.js";
+
+// CLoudinary
+cloudinary.config({
+  cloud_name: config.cloudinary.cloudinary_name,
+  api_key: config.cloudinary.cloudinary_api_key,
+  api_secret: config.cloudinary.cloudinary_api_secret,
+});
+
 import moviesModel from "../models/Movies.js"
+const moviesController = {};
 
 // SELECT
 moviesController.getMovie = async (req, res) => {
@@ -10,7 +19,7 @@ moviesController.getMovie = async (req, res) => {
 
 // INSERT
 moviesController.createMovie = async (req, res) => {
-    const {tittle, description, director, genre, year, duration} = req.body;
+    const {title, description, director, genre, year, duration} = req.body;
     
     let imageURL = ""
 
@@ -21,12 +30,12 @@ moviesController.createMovie = async (req, res) => {
                 folder: "public",
                 allowed_formats: ["png", "jpg", "svg", "jpeg"]
             }
-        )
+        );
         
-        imageURL = result.secure_url
+        imageURL = result.secure_url;
     }
 
-    const newMovie = new moviesModel({ tittle, description, director, genre, year, duration, image: imageURL });
+    const newMovie = new moviesModel({ title, description, director, genre, year, duration, image: imageURL });
     await newMovie.save()
     res.json({ message: "Movie saved"})
 };
@@ -39,7 +48,7 @@ moviesController.deleteMovie = async (req, res) => {
 
 // UPDATE
 moviesController.updateMovie = async (req, res) => {
-    const { tittle, description, director, genre, year, duration } = req.body;
+    const { title, description, director, genre, year, duration } = req.body;
         
     let imageURL = ""
 
@@ -56,7 +65,7 @@ moviesController.updateMovie = async (req, res) => {
     }
     
     await moviesModel.findByIdAndUpdate(req.params.id, {
-        tittle, 
+        title, 
         description, 
         director, 
         genre, 

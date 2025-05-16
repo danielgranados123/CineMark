@@ -3,5 +3,5 @@
 *.env
 
 
-/backend/ public
+/backend/public
 *public

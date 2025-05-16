@@ -112,12 +112,12 @@ registerCustomersController.verifyCodeEmail = async (req, res) => {
     }
 
     // busco al cliente
-    const client = await customersModel.findOne({ email });
-    if (!client) {
+    const customer = await customersModel.findOne({ email });
+    if (!customer) {
       return res.json({ message: "Customer not found" });
     }
 
-    await client.save();
+    await customer.save();
 
     // Quito lo del token
     res.clearCookie("verificationToken");

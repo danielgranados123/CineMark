@@ -13,6 +13,8 @@ import registerEmployeesRoutes from "./src/routes/registerEmployees.js"
 import logoutRoutes from "./src/routes/logout.js"
 import loginRoutes from "./src/routes/login.js"
 
+import recoveryPasswordRoutes from "./src/routes/recoveryPassword.js"
+
 // Libreria de Express
 const app = express();
 
@@ -32,6 +34,8 @@ app.use("/api/registerEmployees", registerEmployeesRoutes)
 
 app.use("/api/logout", logoutRoutes)
 app.use("/api/login", loginRoutes)
+
+app.use("/api/recoveryPassword", recoveryPasswordRoutes)
 
 
 // Exportar
